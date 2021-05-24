@@ -1,5 +1,5 @@
 # Gravity simulator
-... as seen in https://blog.nikpappas.com/post/gravity-simulator.html
+... as seen in https://blog.nikpappas.com/post/gravity-simulator
 
 
 ## Instructions
