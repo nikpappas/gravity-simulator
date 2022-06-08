@@ -118,7 +118,7 @@ class GravitySimulatorTest {
     void calculateForceTest() {
         double earthRadius = 6378000;
         GravitySimulator gs = new GravitySimulator();
-        Particle earth = new Particle(5.9722E+24, 0, 0);
+        Particle earth = new Particle(EARTH_MASS, 0, 0);
         Particle human = new Particle(100, 0, 100 + earthRadius);
 
         Couple<Force> res = gs.calculateGravity(earth, human);
