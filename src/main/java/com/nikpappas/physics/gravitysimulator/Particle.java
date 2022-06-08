@@ -33,6 +33,12 @@ public class Particle {
     Force resultantForce;
 
 
+    /**
+     *
+     * @param mass kg
+     * @param x m
+     * @param y m
+     */
     public Particle(double mass, double x, double y) {
         this.mass = mass;
         this.x = x;

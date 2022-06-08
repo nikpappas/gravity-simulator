@@ -13,7 +13,7 @@ import static java.lang.Math.PI;
 
 public class GravitySimulator {
     // m^3 kg^-1 s^-2 || N m^2 kg^-2
-    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -11);
+    public final double GRAVITATIONAL_CONSTANT = 6.67408E-11;
     // Jigged up x1000
 //    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -8);
     private final World world = new World();

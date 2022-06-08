@@ -1,5 +1,7 @@
 package com.nikpappas.physics.gravitysimulator;
 
+import com.nikpappas.physics.gravitysimulator.vector.Force;
+import com.nikpappas.physics.util.Couple;
 import org.junit.jupiter.api.Test;
 
 import static com.nikpappas.physics.util.TestUtils.assertApproximate;
@@ -7,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GravitySimulatorTest {
     public static final double PRECISION = 0.0000000000000000001;
+    public static final double EARTH_RADIUS = 6378000;
+    public static final double EARTH_MASS = 5.9722E+24;
+
 
     @Test
     void test2MassesSameMassSymmetry() {
@@ -95,18 +100,29 @@ class GravitySimulatorTest {
 
     @Test
     void freeFallTest() {
-        Particle earth = new Particle(5.9722E+24, 0, 0);
-        Particle human = new Particle(100, 0, 100);
+        Particle earth = new Particle(EARTH_MASS, 0, 0);
+        Particle human = new Particle(100, 0, 100 + EARTH_RADIUS);
         GravitySimulator gs = new GravitySimulator();
         gs.addParticle(earth);
         gs.addParticle(human);
         double time = 0.0;
         double increment = .01;
         while (time < 5) {
-            System.out.printf("%.3f - %.3f - %.9f%n", time, human.y, earth.y);
+            System.out.printf("%.3f,  %.3f, %.9f%n", time, human.y - EARTH_RADIUS, earth.y);
             time += increment;
             gs.tick(increment);
         }
+    }
+
+    @Test
+    void calculateForceTest() {
+        double earthRadius = 6378000;
+        GravitySimulator gs = new GravitySimulator();
+        Particle earth = new Particle(5.9722E+24, 0, 0);
+        Particle human = new Particle(100, 0, 100 + earthRadius);
+
+        Couple<Force> res = gs.calculateGravity(earth, human);
+        assertEquals(979.812787317626, res._2.magnitude);
     }
 
     private static void assertApproximateP(double expected, double actual) {
