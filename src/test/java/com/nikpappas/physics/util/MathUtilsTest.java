@@ -1,26 +1,26 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.util;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static com.nikpappas.physics.gravitysimulator.MathUtils.*;
-import static com.nikpappas.physics.gravitysimulator.TestUtils.assertApproximate;
+import static com.nikpappas.physics.util.MathUtils.*;
+import static com.nikpappas.physics.util.TestUtils.assertApproximate;
 
 class MathUtilsTest {
 
     @ParameterizedTest(name = "{index} -- angle from  {0},{1} == {2}")
     @CsvSource({
             "1.0,1.0,45",
-            "1.0,-1.0,-45",
+            "1.0,-1.0,315",
             "0.0,0.0,0.0",
-            "-1.0,-1.0,-135.0",
+            "-1.0,-1.0,225.0",
             "0.0,1.0,90.0",
             "1.0,0.0,0.0",
-            "-0.000005899109039, -0.000005899109722,-45.0",
-            "4.0,3.0, 53.0"})
+            "-0.000005899109039, -0.000005899109722,225.00000331685808",
+            "4.0,3.0, 36.86989764"})
     public void testCalculateAngle(double a, double b, double res) {
 
-        assertApproximate(deg2DRad(res), calculateAngle(a, b), 0.0000001);
+        assertApproximate(res, rad2Deg(calculateAngle(a, b)), 0.0000001);
     }
 
 

@@ -1,6 +1,10 @@
 package com.nikpappas.physics.gravitysimulator;
 
 
+import com.nikpappas.physics.gravitysimulator.vector.Acceleration;
+import com.nikpappas.physics.gravitysimulator.vector.Force;
+import com.nikpappas.physics.gravitysimulator.vector.Velocity;
+
 public class Particle {
     /**
      * Mass in Kg

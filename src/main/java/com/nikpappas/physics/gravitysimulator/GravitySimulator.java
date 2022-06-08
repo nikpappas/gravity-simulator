@@ -1,25 +1,45 @@
 package com.nikpappas.physics.gravitysimulator;
 
+import com.nikpappas.physics.gravitysimulator.vector.Acceleration;
+import com.nikpappas.physics.gravitysimulator.vector.Force;
+import com.nikpappas.physics.gravitysimulator.vector.Velocity;
+import com.nikpappas.physics.util.Couple;
+import com.nikpappas.physics.util.MathUtils;
+
 import java.util.List;
 
-import static com.nikpappas.physics.gravitysimulator.MathUtils.sqr;
+import static com.nikpappas.physics.util.MathUtils.sqr;
 import static java.lang.Math.PI;
 
 public class GravitySimulator {
     // m^3 kg^-1 s^-2 || N m^2 kg^-2
-//    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -11);
+    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -11);
     // Jigged up x1000
-    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -8);
+//    public final double GRAVITATIONAL_CONSTANT = 6.67408 * Math.pow(10, -8);
     private final World world = new World();
+    private boolean debug;
+
+    public GravitySimulator(boolean debug) {
+        this.debug = debug;
+    }
+
+    public GravitySimulator() {
+        this(false);
+    }
 
 
     public static void main(String[] args) {
-        GravitySimulator sim = new GravitySimulator();
+        GravitySimulator sim = new GravitySimulator(false);
         sim.run();
 
     }
 
-    public void tick() {
+    /**
+     * Calculates acceleration, velocity and position of the particles after `time` seconds of the previous status
+     *
+     * @param time The time increment for the calculation of position and vectors of the particles
+     */
+    public void tick(double time) {
         world.getParticles().forEach(p -> p.resultantForce = null);
         world.getCouples()
                 .forEach(c -> {
@@ -29,22 +49,31 @@ public class GravitySimulator {
                 });
 
 
-        world.getParticles().stream().parallel().forEach(p -> {
-            p.a = calculateAcceleration(p, p.resultantForce);
-            // Assuming one second
-            double vx = p.v.getMagnitudeX() + p.a.getMagnitudeX();
-            double vy = p.v.getMagnitudeY() + p.a.getMagnitudeY();
-            p.v = Velocity.fromConstituents(vx, vy);
-            p.x = p.x + p.v.getMagnitudeX();
-            p.y = p.y + p.v.getMagnitudeY();
-        });
+        world.getParticles().stream()
+                .parallel()
+                .forEach(p -> {
+                    p.a = calculateAcceleration(p, p.resultantForce);
+                    double vx = p.v.getMagnitudeX() + p.a.getMagnitudeX() * time;
+                    double vy = p.v.getMagnitudeY() + p.a.getMagnitudeY() * time;
+                    p.v = Velocity.fromConstituents(vx, vy);
+                    p.x = p.x + p.v.getMagnitudeX() * time;
+                    p.y = p.y + p.v.getMagnitudeY() * time;
+                });
 
         for (int pi = 0; pi < world.getParticles().size(); pi++) {
 
             Particle p = world.getParticles().get(pi);
-            System.out.printf("%d: F -> %s \n\ta -> %s \n\t\tv -> \n\t\t\t%s \n\t\t\t\tx -> %f y -> %f%n", pi, p.resultantForce, p.a, p.v, p.x, p.y);
+            if (debug) {
+                System.out.printf("%d: F -> %s \n\ta -> %s \n\t\tv -> \n\t\t\t%s \n\t\t\t\tx -> %f y -> %f%n", pi, p.resultantForce, p.a, p.v, p.x, p.y);
+            }
         }
+    }
 
+    /**
+     * Calculates acceleration, velocity and position of the particles after 1 second of the previous status
+     */
+    public void tick() {
+        tick(1);
     }
 
     public void run() {

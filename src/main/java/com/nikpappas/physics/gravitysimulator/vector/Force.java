@@ -1,4 +1,4 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.gravitysimulator.vector;
 
 public class Force extends Vector {
     public Force(double magnitude, double angle) {

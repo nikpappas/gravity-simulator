@@ -1,11 +1,12 @@
 package com.nikpappas.physics.gravitysimulator;
 
+import com.nikpappas.physics.util.Couple;
+
 import java.util.*;
 
 import static java.util.stream.Collectors.toSet;
 
 public class World {
-
     private final List<Particle> particles;
     private final Map<Particle, List<Particle>> interactions;
 
@@ -14,8 +15,9 @@ public class World {
     }
 
     public World(List<Particle> particles) {
-        this.particles = particles;
+        this.particles = new ArrayList<>();
         this.interactions = new HashMap<>();
+        particles.forEach(this::addParticle);
     }
 
     public void addParticle(Particle p) {

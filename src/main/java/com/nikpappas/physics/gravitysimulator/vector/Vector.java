@@ -1,14 +1,16 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.gravitysimulator.vector;
 
-import static com.nikpappas.physics.gravitysimulator.MathUtils.calculateDistance;
-import static com.nikpappas.physics.gravitysimulator.MathUtils.rad2Deg;
+import com.nikpappas.physics.util.MathUtils;
+
+import static com.nikpappas.physics.util.MathUtils.calculateDistance;
+import static com.nikpappas.physics.util.MathUtils.rad2Deg;
 import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 import static java.lang.String.format;
 
 public class Vector {
-    final double magnitude;
-    final double angle;
+    public final double magnitude;
+    public final double angle;
 
     public Vector(double magnitude, double angle) {
         this.magnitude = magnitude;

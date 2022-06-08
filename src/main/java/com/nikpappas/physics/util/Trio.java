@@ -1,4 +1,4 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.util;
 
 public class Trio<T> {
     public final T _1;

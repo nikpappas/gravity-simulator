@@ -1,4 +1,4 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.gravitysimulator.vector;
 
 public class Acceleration extends Vector {
     public Acceleration(double magnitude, double angle) {

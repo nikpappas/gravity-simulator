@@ -1,5 +1,6 @@
 package com.nikpappas.physics.gravitysimulator;
 
+import com.nikpappas.physics.util.Trio;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class ProcessingApplet extends PApplet {
     }
 
     boolean paused = false;
-    final GravitySimulator sim = new GravitySimulator();
+    final GravitySimulator sim = new GravitySimulator(false);
     final List<Trio<Float>> colours = new ArrayList<>();
 
     @Override

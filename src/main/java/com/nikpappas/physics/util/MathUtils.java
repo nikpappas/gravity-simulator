@@ -1,4 +1,4 @@
-package com.nikpappas.physics.gravitysimulator;
+package com.nikpappas.physics.util;
 
 import static java.lang.Math.*;
 
